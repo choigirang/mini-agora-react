@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Template from "./component/Template";
+import InputForm from "./component/InputForm";
+// import Arrow from "./component/Arrow";
+// import Comment from "./component/Comment";
+import CommentList from "./component/CommentList";
 
 function App() {
+  const [list, setList] = useState([
+    {
+      id: "choi",
+      category: "카테고리",
+      it: "내용을 작성하는 란",
+    },
+    {
+      id: "Gi",
+      category: "예시 컨텐츠 2",
+      it: "내용을 작성하는 란",
+    },
+    {
+      id: "Rang",
+      category: "예시 컨텐츠 3",
+      it: "내용을 작성하는 란",
+    },
+  ]);
+
+  // const onInsert = (text) => {
+  //   setList([...list, { id: text }]);
+  // };
+
+  const onInsertComment = (text) => {
+    const addList = {
+      id: text.inputId,
+      category: text.inputCategory,
+      it: text.inputIt,
+    };
+    console.log("addList", addList);
+    setList((list) => list.concat(addList));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Template>
+      <InputForm onInsertComment={onInsertComment} />
+      {/* <Arrow /> */}
+      <CommentList list={list} />
+    </Template>
   );
 }
 
